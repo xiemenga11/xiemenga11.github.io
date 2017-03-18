@@ -10,6 +10,7 @@
 	-moz-box-sizing:border-box;
 	-ms-box-sizing:border-box;
 	-o-box-sizing:border-box;
+	font-family: 'Consolas';
 }
 img{
 	border:none;
@@ -230,6 +231,18 @@ html,body{
 }
 .dir-b2t{
 	flex-direction:column-reverse;
+}
+.dis-none,
+.hide{
+	display: none;
+}
+.dis-b,
+.show{
+	display: block;
+}
+.dis-ib,
+.show-i{
+	display: inline-block;
 }
 /*---------------------- I ----------------------*/
 .item-a-start{
