@@ -34,7 +34,7 @@
 		mSpin,
 		hSpin,
 		msDeg = 360 / 60 / 1000
-	function drawClock(spin,r,end,color){
+	function drawClock(spin,r,end,color,txt){
 		C("mycan")
 		.save()
 		.setSClo(color)
@@ -52,14 +52,27 @@
 		.stroke()
 		.close()
 		.init()
+		.save()
+		.translate(600,350)
+		.begin()
+		.fontSize(30)
+		.ftext({
+			text:txt,
+			position:[Math.cos(Math.PI/180*spin)*r+10,Math.sin(Math.PI/180*spin)*r+10]// position:[r-22,-35]
+		})
+		.close()
+		.init()
 	}
 	var timerLoop = setInterval(function(){
 		time = new Date()
 		sSpin = 360 / 60 * time.getSeconds() + msDeg * time.getMilliseconds() - 81
+		mSpin = 360 / 60 * time.getMinutes() - 78 + time.getSeconds() * 0.1 
+		hSpin = 360 / 12 * time.getHours() - 78 + time.getMinutes() * 0.5
 		C("mycan").clearAll()
-		drawClock( sSpin,300,1.9,"#13e06b" )
+		drawClock( sSpin,300,1.9,"#13e06b",time.getSeconds() )
+		drawClock( mSpin,250,1.88,"red",time.getMinutes() )
+		drawClock( hSpin,200,1.85,"green",time.getHours() )
 	},20)
-
 </script>
 </body>
 </html>
