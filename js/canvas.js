@@ -88,11 +88,21 @@
 			}
 			return this;
 		},
-		setFillColor:function(color){
+		setFClo:function(color){
 			this.can.fillStyle = color
+			return this
 		},
-		setStrokeColor:function(color){
+		setSClo:function(color){
 			this.can.strokeStyle = color
+			return this
+		},
+		ln_cap:function(cap){
+			this.can.lineCap = cap
+			return this
+		},
+		ln_wid:function(wid){
+			this.can.lineWidth = wid
+			return this
 		},
 		moveTo:function(x,y){
 			this.can.moveTo(x,y);
@@ -284,7 +294,7 @@
 		/*
 		r_gradient:圆形一放射渐变
 		config{
-			center:[int,int] 渐变的圆心
+			center:[int,int,int,int] 渐变的圆心
 			sr:int 起始圆的半径
 			br:int 放射范围的半径
 			stop:[
@@ -294,7 +304,7 @@
 		return:创建的渐变
 		*/
 		r_gradient:function(config){
-			var gra=this.can.createRadialGradient(config.center[0],config.center[1],config.sr,config.center[0],config.center[1],config.br);
+			var gra=this.can.createRadialGradient(config.center[0],config.center[1],config.sr,config.center[2],config.center[3],config.br);
 			for(var i = 0; i<config.stop.length; i++){
 				gra.addColorStop(config.stop[i][0],config.stop[i][1]);
 			}

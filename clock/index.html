@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>时钟DEMO</title>
+	<link rel="stylesheet" href="../css/leo.css">
+	<style>
+		#mycan{
+			width:1200px;
+			height:700px;
+			border:1px solid red;
+			display: block;
+			margin:0 auto;
+			background-color: #fff;
+		}
+	</style>
+</head>
+<body>
+<canvas id="mycan" width="1200" height="700"></canvas>
+<script src="../js/selector.js"></script>
+<script src="../js/canvas.js"></script>
+<script>
+	var gra = C("mycan").r_gradient({
+		center:[70,70,50,50],
+		sr:50,
+		br:150,
+		stop:[
+			[0,"#fff"],
+			[1,"#ccc"]
+		]
+	})
+	C("mycan")
+	.save()
+	.setSClo("#13e06b")
+	.ln_cap("round")
+	.ln_wid(50)
+	.translate(600,350)
+	.begin()
+	.arc({
+		center:[0,0],
+		r:300,
+		start:0,
+		end:1.9
+	})
+	.stroke()
+	.close()
+	.begin()
+	.setSClo("#f41d68")
+	.arc({
+		center:[0,0],
+		r:250,
+		start:0,
+		end:1.88
+	})
+	.stroke()
+	.close()
+	.begin()
+	.setSClo("yellow")
+	.arc({
+		center:[0,0],
+		r:200,
+		start:0,
+		end:1.85
+	})
+	.stroke()
+	.close()
+	.init()
+	.save()
+	.translate(600,350)
+	.setFClo(gra)
+	.begin()
+	.arc({
+		r:175,
+		center:[0,0]
+	})
+	.fill()
+	.close()
+	.init()
+</script>
+</body>
+</html>
