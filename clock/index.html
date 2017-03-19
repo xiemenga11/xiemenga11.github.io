@@ -53,7 +53,8 @@
 		.close()
 		.init()
 		.save()
-		.translate(600,350)
+		.translate(575,350)
+		.setFClo("#fff")
 		.begin()
 		.fontSize(30)
 		.ftext({
@@ -69,9 +70,21 @@
 		mSpin = 360 / 60 * time.getMinutes() - 78 + time.getSeconds() * 0.1 
 		hSpin = 360 / 12 * time.getHours() - 78 + time.getMinutes() * 0.5
 		C("mycan").clearAll()
-		drawClock( sSpin,300,1.9,"#13e06b",time.getSeconds() )
-		drawClock( mSpin,250,1.88,"red",time.getMinutes() )
-		drawClock( hSpin,200,1.85,"green",time.getHours() )
+		drawClock( sSpin,300,1.9,"#f79f79",time.getSeconds() )
+		drawClock( mSpin,250,1.88,"#f7d08a",time.getMinutes() )
+		drawClock( hSpin,200,1.85,"#e3f09b",time.getHours() )
+		C("mycan")
+		.save()
+		.translate(600,350)
+		.setFClo("#87b6a7")
+		.begin()
+		.arc({
+			center:[0,0],
+			r:175
+		})
+		.fill()
+		.close()
+		.init()
 	},20)
 </script>
 </body>
