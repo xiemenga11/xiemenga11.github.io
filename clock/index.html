@@ -26,56 +26,40 @@
 		br:150,
 		stop:[
 			[0,"#fff"],
-			[1,"#ccc"]
+			[1,"#eee"]
 		]
 	})
-	C("mycan")
-	.save()
-	.setSClo("#13e06b")
-	.ln_cap("round")
-	.ln_wid(50)
-	.translate(600,350)
-	.begin()
-	.arc({
-		center:[0,0],
-		r:300,
-		start:0,
-		end:1.9
-	})
-	.stroke()
-	.close()
-	.begin()
-	.setSClo("#f41d68")
-	.arc({
-		center:[0,0],
-		r:250,
-		start:0,
-		end:1.88
-	})
-	.stroke()
-	.close()
-	.begin()
-	.setSClo("yellow")
-	.arc({
-		center:[0,0],
-		r:200,
-		start:0,
-		end:1.85
-	})
-	.stroke()
-	.close()
-	.init()
-	.save()
-	.translate(600,350)
-	.setFClo(gra)
-	.begin()
-	.arc({
-		r:175,
-		center:[0,0]
-	})
-	.fill()
-	.close()
-	.init()
+	var time,
+		sSpin,
+		mSpin,
+		hSpin,
+		msDeg = 360 / 60 / 1000
+	function drawClock(spin,r,end,color){
+		C("mycan")
+		.save()
+		.setSClo(color)
+		.ln_cap("round")
+		.ln_wid(50)
+		.translate(600,350)
+		.spin(spin)
+		.begin()
+		.arc({
+			center:[0,0],
+			r:r,
+			start:0,
+			end:end
+		})
+		.stroke()
+		.close()
+		.init()
+	}
+	var timerLoop = setInterval(function(){
+		time = new Date()
+		sSpin = 360 / 60 * time.getSeconds() + msDeg * time.getMilliseconds() - 81
+		C("mycan").clearAll()
+		drawClock( sSpin,300,1.9,"#13e06b" )
+	},20)
+
 </script>
 </body>
 </html>

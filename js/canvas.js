@@ -104,6 +104,11 @@
 			this.can.lineWidth = wid
 			return this
 		},
+		fontSize:function(size,font){
+			var font = font || "Consolas"
+			this.can.font = size + "px Consolas"
+			return this
+		},
 		moveTo:function(x,y){
 			this.can.moveTo(x,y);
 			return this;
