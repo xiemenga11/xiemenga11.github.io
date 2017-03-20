@@ -5,18 +5,30 @@
 	<title>时钟DEMO</title>
 	<link rel="stylesheet" href="../css/leo.css">
 	<style>
+		body{
+			background-color: #fff;
+		}
 		#mycan{
-			width:1200px;
-			height:700px;
-			border:1px solid red;
+			height:100%;
 			display: block;
 			margin:0 auto;
 			background-color: #fff;
+		}
+		#goHome{
+			display: block;
+			position: fixed;
+			bottom:30px;
+			right:20px;
+			padding:10px;
+			border-radius: 5px;
+			background-color: rgba(0,0,0,0.3);
+			color:white;
 		}
 	</style>
 </head>
 <body>
 <canvas id="mycan" width="1200" height="700"></canvas>
+<a id="goHome" href="../index.html">返回首页</a>
 <script src="../js/selector.js"></script>
 <script src="../js/canvas.js"></script>
 <script>
@@ -33,7 +45,16 @@
 		sSpin,
 		mSpin,
 		hSpin,
-		msDeg = 360 / 60 / 1000
+		msDeg = 360 / 60 / 1000,
+		week = [
+			'星期天',
+			'星期一',
+			'星期二',
+			'星期三',
+			'星期四',
+			'星期五',
+			'星期六',
+		]
 	function drawClock(spin,r,end,color,txt){
 		C("mycan")
 		.save()
@@ -85,7 +106,23 @@
 		.fill()
 		.close()
 		.init()
+		.save()
+		.begin()
+		.translate(600,350)
+		.setFClo("white")
+		.fontSize(40)
+		.ftext({
+			text:time.getFullYear()+"/"+(time.getMonth()+1)+"/"+time.getDate(),
+			position:[-95,0]
+		})
+		.ftext({
+			text:week[time.getDay()],
+			position:[-50,50]
+		})
+		.close()
+		.init()
 	},20)
+	
 </script>
 </body>
 </html>
