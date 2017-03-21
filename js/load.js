@@ -24,10 +24,10 @@ window.onload = function(){
 					width:op2 * 98 + "%"
 				})
 				if( op < 1 ){
-					op += 0.1
+					op = (op + 0.1).fixed()
 				}
 				if( op2 < 1 ){
-					op2 += 0.1
+					op2 = (op2 + 0.05).fixed(2)
 				}
 				if( op >= 1 && op2 >= 1 ){
 					clearInterval( timer )

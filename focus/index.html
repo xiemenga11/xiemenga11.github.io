@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style>
+		body{
+			background-color: #fff;
+		}
+		#focus{
+			width:1000px;
+			height:400px;
+			margin:0 auto;
+			/*background-color: #f00;*/
+			position: relative;
+			overflow: hidden;
+		}
+		#picBox{
+			position: absolute;
+		}
+		#picBox img{
+			float:left;
+			height:100%;
+		}
+		button{
+			position: absolute;
+			top:50%;
+		}
+		#pre{
+			left:0;
+		}
+		#next{
+			right:0;
+		}
+	</style>
+</head>
+<body>
+	<div id="focus">
+		<div id="picBox">
+			<img src="../img/水彩背景1.jpg" alt="">
+			<img src="../img/水彩背景2.jpg" alt="">
+			<img src="../img/水彩背景3.jpg" alt="">
+			<img src="../img/水彩背景4.jpg" alt="">
+			<img src="../img/水彩背景5.jpg" alt="">
+		</div>
+		<button id="pre">pre</button>
+		<button id="next">next</button>
+	</div>
+<script>
+	var fc = document.getElementById("focus"),
+		fWid = parseInt(getStyle(fc,"width")),
+		pb = document.getElementById("picBox"),
+		img = pb.getElementsByTagName("img"),
+		pre = document.getElementById("pre"),
+		next = document.getElementById("next"),
+		timer,
+		target = 0
+
+	function getStyle(obj,css,value){
+		if(value){
+			obj.style[css] = value
+		}else{
+			return obj.currentStyle ? obj.currentStyle[css] : window.getComputedStyle(obj,false)[css]
+		}
+	}
+	//init style
+	pb.style.width = parseInt(getStyle(fc,"width")) * img.length + "px"
+	for(var i = 0; i < img.length; i++){
+		img[i].style.width = getStyle(fc,"width")
+		img[i].style.height = getStyle(fc,"height")
+	}
+	next.onclick = function(){
+		target -= fWid
+		move(target)
+	}
+	pre.onclick = function(){
+		target += fWid
+		move2(target)
+	}
+	function move(target){
+		var speed
+
+		clearInterval(timer)
+		timer = setInterval(function(){
+			speed = (target - pb.offsetLeft) / 8
+			speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+			if(pb.offsetLeft > target){
+				pb.style.left = pb.offsetLeft + speed + "px"
+			}else{
+				clearInterval(timer)
+			}
+		},20)
+	}
+	function move2(target){
+		var speed
+
+		clearInterval(timer)
+		timer = setInterval(function(){
+			speed = (target + pb.offsetLeft) / 8
+			speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+			if(pb.offsetLeft < target){
+				pb.style.left = pb.offsetLeft - speed + "px"
+			}else{
+				clearInterval(timer)
+			}
+		},20)
+	}
+</script>
+</body>
+</html>
