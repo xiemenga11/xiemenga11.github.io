@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width = device-width,initial-scale = 1">
+	<title>响应式布局</title>
+	<link id="css" rel="stylesheet" href="../css/leo.css">
+	<style>
+		#header,
+		#footer{
+			width:100%;
+			background-color: #007aff;
+			color:white;
+			height:100px;
+			line-height: 100px;
+		}
+		#menu,
+		#content{
+			float: left;
+			height:500px;
+		}
+		#menu{
+			background-color:red;
+			width: 30%;
+		}
+		.item{
+			width:100%;
+			background-color: yellow;
+			padding:10px;
+			border-radius: 5px;
+			margin-bottom: 10px;
+		}
+		#content{
+			background-color:orange;
+			width:70%;
+		}
+		@media screen and (max-width: 768px){
+			#menu,
+			#content{
+				float:none;
+				width:100%;
+			}
+			#menu{
+				height:50px;
+			}
+			#menu:after{
+				content:"";
+				display: block;
+				clear:both;
+			}
+			.item{
+				float: left;
+				width:19%;
+				margin-right: 1%;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="header">header</div>
+	<div id="mid" class="clear">
+		<div id="menu">
+			<div class="item"><a href="../index.html">返回首页</a></div>
+			<div class="item">item2</div>
+			<div class="item">item3</div>
+			<div class="item">item4</div>
+			<div class="item">item5</div>		
+		</div>
+		<div id="content">content</div>
+	</div>
+	<div id="footer">footer</div>
+<script>
+</script>
+</body>
+</html>
