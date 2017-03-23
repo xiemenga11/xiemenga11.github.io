@@ -308,7 +308,7 @@
 				l(this).listen("mousemove",move)
 			})
 			this.listen("mouseup",function(e){
-				l(this).notListen("mousemove",move)
+				l(this).unListen("mousemove",move)
 				if(status && status == direction){
 					callback.call(this)
 				}

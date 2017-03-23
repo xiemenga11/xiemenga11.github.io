@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>手势操作</title>
+	<link rel="stylesheet" href="../css/leo.css">
+	<style>
+		#box{
+			width:100%;
+			height:100%;
+			background: #007aff;
+			color:white;
+			line-height: 100%;
+			font-size: 100px;
+			text-align: center;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+	</style>
+</head>
+<body>
+<div id="box"></div>
+<script src="../js/selector.js"></script>
+<script>
+	l().swipe("left",function(){
+		l("#box").html("left")
+	})
+	l().swipe("right",function(){
+		l("#box").html("right")
+	})
+	l().swipe("up",function(){
+		l("#box").html("up")
+	})
+	l().swipe("down",function(){
+		l("#box").html("down")
+	})
+</script>
+</body>
+</html>
