@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>奇葩贪吃蛇</title>
+	<style>
+		#mycan{
+			width: 1000px;
+			height:500px;
+			display: block;
+			margin: 0 auto;
+			border:1px solid red;
+		}
+		#ctrlBox{
+			display: none;
+		}
+		@media screen and (max-width:768px){
+			#mycan{
+				width:100%;
+			}
+			#ctrlBox{
+				width:100%;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				display: block;
+			}
+			.btn{
+				width:50px;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				background-color: blue;
+				color:white;
+			}
+			#up,
+			#down{
+				float:left;
+			}
+			#left,
+			#right{
+				float:right;
+			}
+		}
+	</style>
+</head>
+<body>
+<canvas id="mycan" width="1000" height="500"></canvas>
+<div id="ctrlBox">
+	<div id="up" class="btn">↑</div>
+	<div id="down" class="btn">↓</div>
+	
+	<div id="right" class="btn">→</div>
+	<div id="left" class="btn">←</div>
+</div>
+<script src="../js/selector.js"></script>
+<script src="../js/canvas.js"></script>
+<script>
+	var can = C("mycan"),
+		Snake = function(){
+			this.bodyCount = 6
+			this.body = []
+			for(var i = 0; i < this.bodyCount; i++){
+				this.body[i] = [i * 20,0]
+			}
+			this.lr = 1
+			this.ud = 0
+		},
+		Food = function(){
+			this.makeFood()
+		},
+		timer
+		Food.prototype = {
+			drawFood:function(){
+				can
+				.save()
+				.setFClo("red")
+				.rec({
+					start:[this.x,this.y],
+					size:[20,20]
+				})
+				.fill()
+				.init()
+			},
+			makeFood:function(){
+				this.x = Math.floor(Math.random() * (can.width / 20)) * 20
+				this.y = Math.floor(Math.random() * (can.height / 20))* 20
+			}
+		}
+		Snake.prototype = {
+			move:function(food){
+				this.body.push([this.body[this.body.length-1][0]+20*this.lr,this.body[this.body.length-1][1]+20*this.ud])
+				if(this.body[this.body.length - 1][0] < 0 ||
+					this.body[this.body.length - 1][0] > can.width - 20 ||
+					this.body[this.body.length - 1][1] < 0 ||
+					this.body[this.body.length - 1][1] > can.height - 20){
+					clearInterval(timer)
+					alert("geme over")
+				}
+				this.body.shift()
+				this.eat(food)
+				this.drawBody()
+			},
+			drawBody:function(){
+				can.clearAll()
+				for(var i = 0; i < this.body.length; i++){
+					can.rec({
+						start:this.body[i],
+						size:[20,20]
+					}).fill()
+				}
+				initGame()
+			},
+			eat:function(food){
+				if(this.body[this.body.length - 1][0] == food.x && this.body[this.body.length - 1][1] == food.y){
+
+					food.makeFood()
+
+					this.bodyCount++
+					// this.body.push([this.body[this.bodyCount-1][0]+20*this.lr,this.body[this.bodyCount-1][1]+20*this.ud])
+					this.body.push([food.x,food.y])
+				}
+			}
+		}
+	function initGame(){
+		can
+		.save()
+		.begin()
+		for(var i = 0; i <= can.width/20; i++){
+			can
+			.moveTo(i * 20,0)
+			.lineTo(i * 20,can.width)
+			.stroke()
+		}
+		for(var i = 0; i <= can.height/20; i++){
+			can
+			.moveTo(0,i * 20)
+			.lineTo(can.width,i * 20)
+			.stroke()
+		}
+		can
+		.close()
+		.init()
+	}
+	var snk = new Snake(),
+		food = new Food()
+	snk.drawBody()
+	initGame()
+	timer = setInterval(function(){
+		snk.move(food)
+		food.drawFood()
+	},100)
+
+	window.onkeydown = function(e){
+		var _e = e || event
+		switch(_e.keyCode){
+			case 37:
+				if(snk.lr != 1){
+					snk.lr = -1
+					snk.ud = 0
+				}
+				break
+			case 38:
+				if(snk.ud != 1){
+					snk.lr = 0
+					snk.ud = -1
+				}
+				break
+			case 39:
+				if(snk.lr != -1){
+					snk.lr = 1
+					snk.ud = 0
+				}
+				break
+			case 40:
+				if(snk.ud != -1){
+					snk.lr = 0
+					snk.ud = 1
+				}
+				break
+		}
+	}
+	l("#up").click(function(){
+		if(snk.ud != 1){
+			snk.lr = 0
+			snk.ud = -1
+		}
+	})
+	l("#down").click(function(){
+		if(snk.ud != -1){
+			snk.lr = 0
+			snk.ud = 1
+		}	
+	})
+	l("#left").click(function(){
+		if(snk.lr != 1){
+			snk.lr = -1
+			snk.ud = 0
+		}
+	})
+	l("#right").click(function(){
+		if(snk.lr != -1){
+			snk.lr = 1
+			snk.ud = 0
+		}
+	})
+</script>
+</body>
+</html>
