@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>像素画板</title>
+	<style>
+		#can,#bg{
+			display: block;
+			width: 500px;
+			height: 500px;
+			border: 1px solid #eee;
+			/*margin: 0 auto;*/
+			position: absolute;
+		}
+		#box{
+			width:500px;
+			height:500px;
+			margin: 0 auto;
+		}
+		#pannel{
+			background-color: #ddd;
+			padding: 10px;
+			border-radius: 5px;
+			margin-top: 10px;
+			width: 800px;
+			display: none;
+		}
+		#showPannel,#pannel,#clearBoard,#era{
+			float: left;
+		}
+		#showPannel,#clearBoard,#era{
+			background-color: #ddd;
+			border-radius: 5px;
+			padding:10px;
+			margin: 10px;
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+		.greenShadow{
+			box-shadow: 0 0 5px green;
+		}
+		#box{
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+<div id="box">
+<canvas id="bg" width="500" height="500"></canvas>
+<canvas id="can" width="500" height="500"></canvas>
+</div>
+<div id="pannel">
+	<label for="color">颜色：</label><input type="color" id="color">
+	<label for="wid">　宽：</label><input type="number" id="wid">
+	<label for="hei">　高：</label><input type="number" id="hei">
+	<label for="spinner">旋转画布：</label><input type="number" id="spinDeg">
+	<input type="button" id="confirm" value="确认">
+</div>
+<div id="showPannel">菜单</div>
+<div id="clearBoard">清除画板</div>
+<div id="era" class="">橡皮擦</div>
+<script src="../js/selector.js"></script>
+<script src="../js/canvas.js"></script>
+<script>
+	var pannelShow = true,
+		can = C("can"),
+		bg = C("bg"),
+		wid = can.width,
+		hei = can.height,
+		blockColor = "black",
+		era = false
+	//操作面板
+	l("#showPannel").click(function(){
+		var _dis
+		if(pannelShow){
+			_dis = "block"
+		}else{
+			_dis = "none"
+		}
+		l("#pannel").css({display:_dis})
+		pannelShow = !pannelShow
+	})
+	//改变色块颜色
+	l("#color").listen("change",function(){
+		blockColor = l("#color").val()
+	})
+	//重围画板
+	l("#clearBoard").click(function(){
+		initBoard()
+	})
+	//橡皮擦
+	l("#era").click(function(){
+		if(era){
+			l(this).attr({className:""})
+		}else{
+			l(this).attr({className:"greenShadow"})
+		}
+		era = !era
+	})
+	function erase(s){
+		can.clear({
+			start:s,
+			size:[20,20]
+		})
+	}
+	//初始化画板
+	function drawLine(s,e){
+		bg
+		.save()
+		.setSClo("#eee")
+		.begin()
+		.moveTo(s[0],s[1])
+		.lineTo(e[0],e[1])
+		.stroke()
+		.close()
+		.init()
+	}
+	function initBoard(){
+		can.clearAll()
+		bg.clearAll()
+		var _line = Math.ceil(wid / 20)
+		for(var i = 1; i < _line; i++){
+			drawLine([i * 20, 0],[i * 20, hei])
+			drawLine([0, i * 20],[wid, i * 20])
+		}
+	}
+	function drawBlock(s){
+		can
+		.save()
+		.begin()
+		.setFClo(blockColor)
+		.frec({
+			start:s,
+			size:[20,20]
+		})
+		.close()
+		.init()
+	}
+	function draw(e){
+		_x = Math.floor(e.offsetX / 20)*20,
+		_y = Math.floor(e.offsetY / 20)*20
+		if(!era){
+			drawBlock([_x,_y])
+		}else{
+			erase([_x,_y])
+		}
+	}
+	function moveDraw(e){
+		var e = e || event
+		draw(e)
+	}
+	initBoard()
+	l("#can").click(function(e){
+		var e = e || event
+		draw(e)		
+	}).listen("mousedown",function(){
+		l(this).listen("mousemove",moveDraw)
+	}).listen("mouseup",function(){
+		l(this).unListen("mousemove",moveDraw)
+	})
+	
+</script>
+</body>
+</html>
