@@ -71,7 +71,8 @@
 		wid = can.width,
 		hei = can.height,
 		blockColor = "black",
-		era = false
+		era = false,
+		blockSize = 10
 	//操作面板
 	l("#showPannel").click(function(){
 		var _dis
@@ -100,10 +101,11 @@
 		}
 		era = !era
 	})
+
 	function erase(s){
 		can.clear({
 			start:s,
-			size:[20,20]
+			size:[blockSize,blockSize]
 		})
 	}
 	//初始化画板
@@ -121,10 +123,10 @@
 	function initBoard(){
 		can.clearAll()
 		bg.clearAll()
-		var _line = Math.ceil(wid / 20)
+		var _line = Math.ceil(wid / blockSize)
 		for(var i = 1; i < _line; i++){
-			drawLine([i * 20, 0],[i * 20, hei])
-			drawLine([0, i * 20],[wid, i * 20])
+			drawLine([i * blockSize, 0],[i * blockSize, hei])
+			drawLine([0, i * blockSize],[wid, i * blockSize])
 		}
 	}
 	function drawBlock(s){
@@ -134,14 +136,14 @@
 		.setFClo(blockColor)
 		.frec({
 			start:s,
-			size:[20,20]
+			size:[blockSize,blockSize]
 		})
 		.close()
 		.init()
 	}
 	function draw(e){
-		_x = Math.floor(e.offsetX / 20)*20,
-		_y = Math.floor(e.offsetY / 20)*20
+		_x = Math.floor(e.offsetX / blockSize)*blockSize,
+		_y = Math.floor(e.offsetY / blockSize)*blockSize
 		if(!era){
 			drawBlock([_x,_y])
 		}else{
@@ -161,7 +163,42 @@
 	}).listen("mouseup",function(){
 		l(this).unListen("mousemove",moveDraw)
 	})
-	
+var num = [
+	[
+		[0,1,1,1,0],
+		[1,0,0,0,1],
+		[1,0,0,0,1],
+		[1,0,0,0,1],
+		[1,0,0,0,1],
+		[0,1,1,1,0]
+	],
+	[
+		[0,0,1,0,0],
+		[0,1,1,0,0],
+		[1,0,1,0,0],
+		[0,0,1,0,0],
+		[0,0,1,0,0],
+		[1,1,1,1,1]
+	],
+	[
+		[0,1,1,1,0],
+		[1,0,0,0,1],
+		[0,0,0,1,0],
+		[0,0,1,0,0],
+		[0,1,0,0,0],
+		[1,1,1,1,1]
+	]
+]
+function drawNum(n){
+	for(var i = 0; i < num[n].length; i++){
+		for(var j = 0; j < num[n][i].length; j++){
+			if(num[n][i][j]){
+				drawBlock([j*blockSize,i*blockSize])
+			}
+		}
+	}
+}
+drawNum(l.url.search("lid"))
 </script>
 </body>
 </html>

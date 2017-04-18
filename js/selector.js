@@ -403,9 +403,29 @@
 			if(url){
 				window.location.href=url;
 			}else{
-				return window.location.href;
+				return window.location.href
 			}
 		}
+
+	
+	l.url.search = function(key){
+		var _sArr = {},
+		_res,
+		_s = location.search.replace(/\?/,"").split("&")
+		for(var i = 0; i < _s.length; i++){
+			_res = _s[i].split("=")
+			_sArr[_res[0]] = _res[1]
+		}
+		if(key){
+			return _sArr[key]
+		}else{
+			return _sArr
+		}
+	}
+	l.url.hash = function(){
+		return location.hash.replace("#","")
+	}
+
 	//防止事件冒泡
 	l.noBubble = function(e){
 		//在之前要获得var e = e || event
