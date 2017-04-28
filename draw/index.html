@@ -45,6 +45,15 @@
 		#box{
 			position: relative;
 		}
+		.clw{
+			color:green;
+		}
+		.bor{
+			border: 1px solid red;
+		}
+		.fo{
+			font-size: 30px;
+		}
 	</style>
 </head>
 <body>
@@ -101,7 +110,16 @@
 		}
 		era = !era
 	})
-
+	//键盘控制橡皮擦
+	l().listen('keydown',function(e){
+		var e = e || event
+		if(era && e.keyCode == 69){
+			l('#era').attr({className:""})
+		}else{
+			l('#era').attr({className:"greenShadow"})
+		}
+		era = !era
+	})
 	function erase(s){
 		can.clear({
 			start:s,

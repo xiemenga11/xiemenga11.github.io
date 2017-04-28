@@ -218,6 +218,31 @@
 			}
 			return this;
 		},
+		getClass:function(){
+			return this.attr('className').split(" ")
+		},
+		/**
+		 * 添加class
+		 * @param {str || array} cls class字符串或class数组
+		 */
+		addClass:function(cls){
+			var _cls = this.getClass()
+			if(l.isArray(cls)){
+				_cls = _cls.concat(cls)
+			}else{
+				for(var i = 0; i < arguments.length; i++){
+					_cls.push(arguments[i])
+				}
+			}
+			this.attr({className:_cls.join(" ")})
+			return this
+		},
+		rmClass:function(cls){
+			var _cls = this.getClass()
+			_cls = _cls.join(" ").replace(cls,"")
+			this.attr({className:_cls})
+			return this
+		},
 		getData:function(key){
 			return this.dom.dataset[key];
 		},
