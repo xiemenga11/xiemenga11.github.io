@@ -25,10 +25,10 @@
 			width: 800px;
 			display: none;
 		}
-		#showPannel,#pannel,#clearBoard,#era{
+		#showPannel,#pannel,#clearBoard,#era,#saveImg,#colorBox{
 			float: left;
 		}
-		#showPannel,#clearBoard,#era{
+		#showPannel,#clearBoard,#era,#saveImg,#colorBox{
 			background-color: #ddd;
 			border-radius: 5px;
 			padding:10px;
@@ -54,6 +54,24 @@
 		.fo{
 			font-size: 30px;
 		}
+		#colorBoard,#favorColor{
+			position: fixed;
+			top:0;
+			border: 1px solid #eee;
+			border-radius: 5px;
+			padding:10px;
+		}
+		#colorBoard{
+			left:0;
+		}
+		#favorColor{
+			right:0;
+		}
+		.CB-color{
+			font-size: 10px;
+			padding:3px 5px;
+			cursor: pointer;
+		}
 	</style>
 </head>
 <body>
@@ -61,42 +79,69 @@
 <canvas id="bg" width="500" height="500"></canvas>
 <canvas id="can" width="500" height="500"></canvas>
 </div>
-<div id="pannel">
-	<label for="color">颜色：</label><input type="color" id="color">
-	<label for="wid">　宽：</label><input type="number" id="wid">
-	<label for="hei">　高：</label><input type="number" id="hei">
-	<label for="spinner">旋转画布：</label><input type="number" id="spinDeg">
-	<input type="button" id="confirm" value="确认">
+<div id="colorBox">
+	<label for="color">颜色：</label>
+	<input type="color" id="color">
 </div>
-<div id="showPannel">菜单</div>
 <div id="clearBoard">清除画板</div>
-<div id="era" class="">橡皮擦</div>
+<div id="era" class="" data-role = 'leo'>橡皮擦</div>
+<div id="saveImg">保存</div>
+
+<!-- 色彩板 -->
+<div id="colorBoard">
+</div>
+<!-- 保存的颜色 -->
+<div id="favorColor">
+</div>
 <script src="../js/selector.js"></script>
 <script src="../js/canvas.js"></script>
+<script src="../js/leo.drag.js"></script>
 <script>
-	var pannelShow = true,
-		can = C("can"),
+	var can = C("can"),
 		bg = C("bg"),
 		wid = can.width,
 		hei = can.height,
 		blockColor = "black",
 		era = false,
-		blockSize = 10
-	//操作面板
-	l("#showPannel").click(function(){
-		var _dis
-		if(pannelShow){
-			_dis = "block"
-		}else{
-			_dis = "none"
+		blockSize = 10,
+		colorBoard = l("#colorBoard"),
+		favorColor = l("#favorColor")
+	if(l.store.get('color')){
+		var _color = l.store.get('color',1)
+		for(var i = 0; i < _color.length; i++){
+			addColorBtn(favorColor,_color[i])
 		}
-		l("#pannel").css({display:_dis})
-		pannelShow = !pannelShow
+	}else{
+		l.store.add('color',[])
+	}
+
+	//保存图片
+	l("#saveImg").click(function(){
+		window.open(can.makeFile())
 	})
 	//改变色块颜色
 	l("#color").listen("change",function(){
 		blockColor = l("#color").val()
+		//向偏好颜色盒子添加颜色按键
+		addColorBtn(colorBoard,blockColor)
+		.listen('dblclick',function(){
+			var _colorArr = l.store.get('color',1)
+			_colorArr.push(blockColor)
+			l.store.add('color',_colorArr)
+
+			addColorBtn(favorColor,blockColor)
+		})
+
 	})
+	function addColorBtn(box,color){
+		return box.addElement('div')
+		.addClass('CB-color')
+		.css({backgroundColor:color})
+		.html(color)
+		.click(function(){
+			blockColor = l(this).html()
+		})
+	}
 	//重围画板
 	l("#clearBoard").click(function(){
 		initBoard()
@@ -113,12 +158,14 @@
 	//键盘控制橡皮擦
 	l().listen('keydown',function(e){
 		var e = e || event
-		if(era && e.keyCode == 69){
-			l('#era').attr({className:""})
-		}else{
-			l('#era').attr({className:"greenShadow"})
+		if(e.keyCode == 69){
+			if(era){
+				l('#era').attr({className:""})
+			}else{
+				l('#era').attr({className:"greenShadow"})
+			}
+			era = !era
 		}
-		era = !era
 	})
 	function erase(s){
 		can.clear({
@@ -216,7 +263,7 @@ function drawNum(n){
 		}
 	}
 }
-drawNum(l.url.search("lid"))
+
 </script>
 </body>
 </html>

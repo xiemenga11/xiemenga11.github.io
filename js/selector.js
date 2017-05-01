@@ -243,8 +243,13 @@
 			this.attr({className:_cls})
 			return this
 		},
-		getData:function(key){
-			return this.dom.dataset[key];
+		data:function(key){
+			if(arguments.length > 1){
+				this.dom.dataset[arguments[0]] = arguments[1]
+				return this
+			}else{
+				return this.dom.dataset[arguments[0]]
+			}
 		},
 		attr:function(attr){
 			if(typeof attr === "string"){
@@ -279,7 +284,7 @@
 				this.dom.appendChild(ele);
 			}
 			ele.parent = this.dom;
-			return ele;
+			return l(ele);
 		},
 		insertElement:function(ele,i){
 			var i = i || 0;
@@ -419,7 +424,7 @@
 		return (typeof data === "boolean");
 	}
 	l.getType = function(data){
-		return (typeof data);
+		return l.isArray(data) ? "array" : (typeof data);
 	}
 	l.randomNum = function(num){
 		return num ? Math.random() * num : Math.random()
@@ -473,6 +478,10 @@
 			return (new Function("return"+str))()
 		}
 	}
+	l.jsonToStr = function (json){
+
+		return JSON.stringify(json)
+	}
 	l.load = function(callback){
 		l(window).listen("load",callback);
 	}
@@ -500,6 +509,65 @@
 		}
 		xml.open(config.method,config.url,true)
 		xml.send(data)
+	}
+
+	//localStorage操作
+	l.store = {
+		/**
+		 * 添加数据
+		 * @param {object || string} data 数据数组或者参数1传KEY，参数2传VALUE
+		 */
+		add:function(data){
+
+			function parseData(data){
+				if(l.isObject(data) || l.isArray(data)){
+					return l.jsonToStr(data)
+				}else{
+					return data
+				}
+			}
+
+			if(!localStorage){
+				console.log('you browser is not surport localStorage')
+				return
+			}
+
+			if(l.isObject(data)){
+				for(var i in data){
+					localStorage[i] = parseData(data[i])
+				}
+			}else if(arguments.length > 1){
+				localStorage[arguments[0]] = parseData(arguments[1])
+			}
+		},
+		//删除localStorage的所有数据
+		rmAll:function(){
+			localStorage.clear()
+			return true
+		},
+		/**
+		 * 获取数据
+		 * @param  {string} key   要得到数据的KEY
+		 * @param  {boolean} parse 如果是JSON字符串的话解析成JSON对象，默认：false(不解析)
+		 * @return {string || object}       数据字符串或者JSON对象数据
+		 */
+		get:function(key,parse){
+			var p = parse || false
+			if(p){
+				return localStorage[key].toJson()
+			}else{
+				return localStorage[key]
+			}
+		},
+		/**
+		 * 删除数据
+		 * @param  {string} key 要删除的KEY
+		 * @return {string}     返回删除的KEY
+		 */
+		rm:function(key){
+			localStorage.removeItem(key)
+			return key
+		}
 	}
 	//窗口宽高
 	l.wid = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
