@@ -51,7 +51,7 @@
 	// 	}
 	// }
 	function _C(obj){
-		this.obj    = document.getElementById(obj);
+		this.obj    =l.isString(obj) ? document.getElementById(obj):obj;
 		this.height = this.obj.height;
 		this.width  = this.obj.width;
 		this.can    = this.obj.getContext("2d");

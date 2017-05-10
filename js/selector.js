@@ -48,6 +48,8 @@
 		}else{
 			this.dom = obj;
 		}
+		
+		this.length = this.dom.length
 
 		if(this.dom.length == 1){
 			this.dom =  this.dom[0];
@@ -190,6 +192,11 @@
 				return this.dom.innerHTML;
 			}
 		},
+		canEdit:function(bool){
+			bool ? this.dom.contentEditable = true : this.dom.contentEditable = false
+			return this			
+		}
+		,
 		css:function(css){
 			if(typeof css === "string"){
 				
@@ -242,6 +249,15 @@
 			_cls = _cls.join(" ").replace(cls,"")
 			this.attr({className:_cls})
 			return this
+		},
+		hasClass:function(cls){
+			var _cls = this.getClass()
+			for(var i = 0; i < _cls.length; i++){
+				if(_cls[i] == cls){
+					return true
+				}
+			}
+			return false
 		},
 		data:function(key){
 			if(arguments.length > 1){
@@ -501,7 +517,8 @@
 		}
 		xml.onreadystatechange = function(){
 			if(xml.readyState == 4 && xml.status == 200){
-				config.callback.call(xml.responseText)
+				var res =config.json ? l.strToJson(xml.responseText) : xml.responseText
+				config.callback.call(res)
 			}
 		}
 		if(config.method.toLowerCase()=="post"){

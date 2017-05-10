@@ -260,6 +260,10 @@ html,body{
 .item-a-baseline{
 	align-self:baseline;
 }
+/*---------------------- L ----------------------*/
+.left{
+	float:left;
+}
 /*---------------------- M ----------------------*/
 .mar{
 	margin:10px;
@@ -300,6 +304,9 @@ html,body{
 	display: -ms-flex;
 	display: -o-flex;
 	width:100%;
+}
+.right{
+	float:right;
 }
 .red-dot-l:before{
 	content:'*';

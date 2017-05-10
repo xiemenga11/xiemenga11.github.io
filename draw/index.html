@@ -97,6 +97,20 @@
 <script src="../js/canvas.js"></script>
 <script src="../js/leo.drag.js"></script>
 <script>
+	if(window.localStorage){
+		alert('yes')
+	}else{
+		alert('no')
+	}
+	window.oncontextmenu = function(){
+
+		// return false
+		var d = document.createElement('div'),
+			txt = document.createTextNode('alsdkf')
+		d.style.backgroundColor = 'red'
+		d.appendChild(txt)
+		document.appendChild(d)
+	}
 	var can = C("can"),
 		bg = C("bg"),
 		wid = can.width,
