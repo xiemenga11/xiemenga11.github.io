@@ -1,0 +1,108 @@
+*{
+	padding:0;
+	margin:0;
+	list-style: none;
+	border:none;
+	text-decoration: none;
+	outline: none;
+	color:#333;
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-ms-box-sizing:border-box;
+	-o-box-sizing:border-box;
+	-ms-word-wrap: break-word;
+	word-wrap: break-word;
+	line-height: 1.5em;
+}
+
+body{
+	background-image: url(../img/mountin.jpg);
+	-webkit-background-size: 100%;
+	background-size: 100%;
+	background-attachment: fixed;
+}
+html,body{
+	height:100%;
+	width:100%;
+}
+.wid10{
+	width:100%;
+}
+.wid9{
+	width:90%;
+}
+.wid8{
+	width:80%;
+}
+.wid7{
+	width:70%;
+}
+.wid6{
+	width:60%;
+}
+.wid5{
+	width:50%;
+}
+.wid4{
+	width:40%;
+}
+.wid3{
+	width:30%;
+}
+.wid2{
+	width:20%;
+}
+.wid1{
+	width:10%;
+}
+.hide{
+	display:none;
+}
+.block,
+.show{
+	display: block;
+}
+.show-in,
+.in-block{
+	display: inline-block;
+}
+.clear:after{
+	content:'';
+	display:block;
+	clear:both;
+}
+.clear{
+	zoom:1;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.txtc{
+	text-align: center;
+}
+.txtr{
+	text-align: right;
+}
+.txtl{
+	text-align: left;
+}
+.abs{
+	position: absolute;
+}
+.rel{
+	position: relative;
+}
+.fix{
+	position: fixed;
+}
+.ani{
+	transition:0.4s all;
+	-webkit-transition:0.4s all;
+	-moz-transition:0.4s all;
+	-ms-transition:0.4s all;
+	-0-transition:0.4s all;
+}

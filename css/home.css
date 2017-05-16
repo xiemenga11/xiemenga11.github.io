@@ -1,0 +1,40 @@
+.menu{
+	background-color:#815d00;
+	height: 40px;
+}
+.menu .menu-item{
+	height:40px;
+	padding:0 20px;
+	line-height: 40px;		
+}
+.menu .menu-item a{
+	color:#feda8a;
+}
+.menu .active,
+.menu .menu-item:hover{
+	background-color: #413411;
+}
+
+
+#search,
+#searchBtn{
+	height: 40px;
+	padding-left: 10px;
+}
+
+#main{
+	padding:20px;
+}
+.left-side{
+	padding-right: 20px;
+}
+.message-box{
+	width:100%;
+	padding:20px;
+	background-color: rgba(255,255,255,0.2);
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+.message-box:hover{
+	background-color: rgba(255,255,255,0.5);
+}
