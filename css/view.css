@@ -18,3 +18,8 @@
 	white-space: pre-wrap;
 	overflow: auto;
 }
+@media only screen and (min-width: 100px) and (max-width: 640px) {
+	.main{
+		width:100%;
+	}
+}
