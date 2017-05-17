@@ -10,6 +10,6 @@ var content = dom.id('content')
 post.onclick = function(){
 	ref.child('artical').push({
 		title:title.value,
-		content:content.value
+		content:content.innerHTML
 	})
 }

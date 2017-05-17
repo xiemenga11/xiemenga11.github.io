@@ -76,16 +76,11 @@ TODO
 </header>
 <div id="main" class="clear">
 	<div id="leftSide" class="left-side wid8 fl">
-		<div class="message-box ani">
+		<!--<div class="message-box ani">
 			<h1 class="wid10">title</h1>
 			<h3 class="wid10">description</h3>
 			<div>2016/2/12 3:34</div>
-		</div>
-		<div class="message-box ani">
-			<h1>title</h1>
-			<h3>descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription</h3>
-			<div>2016/2/12 3:34</div>
-		</div>
+		</div>-->
 	</div>
 	<div class="right-side wid2 fl">ad</div>
 </div>
@@ -104,14 +99,17 @@ TODO
 	})
 	var ref = wilddog.sync().ref()
 	var ls = dom.id('leftSide')
-	ref.child("artical").on('value',function(ret){
+	ref.child("artical").once('value',function(ret){
 		for(var i in ret.val()){
 			var msb = createEle("div")
 			var title = createEle("h1")
+			var a = createEle("a")
+			a.href = "view.html?artid="+i
 			msb.className = "message-box"
 			title.innerHTML = ret.val()[i].title
+			a.appendChild(msb)
 			msb.appendChild(title)
-			ls.appendChild(msb)
+			ls.appendChild(a)
 		}
 	})
 </script>
