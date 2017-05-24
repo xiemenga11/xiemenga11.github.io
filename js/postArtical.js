@@ -12,4 +12,7 @@ post.onclick = function(){
 		title:title.value,
 		content:content.innerHTML
 	})
+	title.value = ""
+	content.innerHTML = ""
+	
 }
