@@ -1,6 +1,6 @@
 function each(arr,callback){
 	for(var i in arr){
-		callback.call(arr[i])
+		callback.call(arr[i],i)
 	}
 }
 function times(time,callback){

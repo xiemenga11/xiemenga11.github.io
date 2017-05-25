@@ -82,7 +82,7 @@ TODO
 			<div>2016/2/12 3:34</div>
 		</div>-->
 	</div>
-	<div class="right-side wid2 fl">ad</div>
+	<div id="ad" class="right-side wid2 fl">ad</div>
 </div>
 
 <footer id="footer"></footer>
@@ -111,6 +111,16 @@ TODO
 	})
 
 
+function classList(e){
+	if(e.classList) return e.classList
+	else return false
+}
+
+var ad = dom.id('ad')
+var l = classList(ad)
+each(l,function(i){
+	console.log(i +":"+ this)
+})
 </script>
 </body>
 </html>
