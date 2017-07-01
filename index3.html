@@ -1,0 +1,127 @@
+
+<!-- 
+TODO
+1：主页
+	1：文章精选
+	2：最新评论
+	3：导航
+		1：JS
+		2：HTML
+		3：CSS
+		4：留言
+		5：照片
+2：文章列表页
+3：文章浏览页
+	1：文章
+	2：评论
+4：留言页
+	1：留言
+	2：回复
+5：后台
+	1：文章添加
+	2：文章修改
+	3：文章删除
+	4：文章查询
+	5：评论浏览
+		1：评论是否显示
+		2：删除评论
+		3：回复评论
+	6：添加照片
+		增删改查
+ -->
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
+	<title>谢濛的博客</title>
+
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+<header id="header">
+	<div class="menu-wrap wid10 clear">
+		<div class="search-box wid2 fl clear">
+			<input type="text" id="search" class="wid8 fl">
+			<button id="searchBtn" class="wid2 fl">>_</button>
+		</div>
+		<ul id="menu" class="menu wid8 fl clear">
+			<li class="menu-item ani fl active">
+				<a href="javascript:void(0)">首页</a>
+			</li>
+			<li class="menu-item ani fl">
+				<a href="javascript:void(0)">说说</a>
+			</li>
+			<li class="menu-item ani fl">
+				<a href="javascript:void(0)">照片</a>
+			</li>
+			<li class="menu-item ani fl">
+				<a href="javascript:void(0)">留言板</a>
+			</li>
+			<li class="menu-item ani fl">
+				<a href="javascript:void(0)">JS</a>
+			</li>
+			<li class="menu-item ani fl">
+				<a href="javascript:void(0)">HTML</a>
+			</li>
+			<li class="menu-item ani fl">
+				<a href="javascript:void(0)">CSS</a>
+			</li>
+			<li class="menu-item ani fl">
+				<a href="javascript:void(0)">PHP</a>
+			</li>
+		</ul>
+	</div>
+</header>
+<div id="main" class="clear">
+	<div id="leftSide" class="left-side wid8 fl">
+		<!--<div class="message-box ani">
+			<h1 class="wid10">title</h1>
+			<h3 class="wid10">description</h3>
+			<div>2016/2/12 3:34</div>
+		</div>-->
+	</div>
+	<div id="ad" class="right-side wid2 fl">ad</div>
+</div>
+
+<footer id="footer"><a href="https://coding.net" target="blank"><img id="logo" src="img/hostedByCoding.png" alt="hosted by coding"></a></footer>
+<script src="https://cdn.wilddog.com/sdk/js/2.5.6/wilddog.js"></script>
+<script src="js/functions.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/menu.js"></script>
+<script>
+	wilddog.initializeApp({
+		syncURL:"https://xiemenga11.wilddogio.com"
+	})
+	var ref = wilddog.sync().ref()
+	var ls = dom.id('leftSide')
+	ref.child("artical").once('value',function(ret){
+		for(var i in ret.val()){
+			var msb = createEle("div")
+			var title = createEle("h1")
+			var a = createEle("a")
+			a.href = "view.html?artid="+i
+			msb.className = "message-box"
+			title.innerHTML = ret.val()[i].title
+			a.appendChild(msb)
+			msb.appendChild(title)
+			ls.appendChild(a)
+		}
+	})
+
+
+function classList(e){
+	if(e.classList) return e.classList
+	else return false
+}
+
+var ad = dom.id('ad')
+var l = classList(ad)
+each(l,function(i){
+	console.log(i +":"+ this)
+})
+</script>
+</body>
+</html>
