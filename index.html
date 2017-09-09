@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,user-scaled=0,initial-scaled=1">
 	<title>谢濛的博客</title>
 	<link rel="stylesheet" href="css/main.css">
 	<style>
@@ -11,89 +12,75 @@
 			left:0;
 			z-index: -1;
 			background-color: #000;
+			height:100%;
+			width:100%;
+			right:0;
+			bottom:0;
+			margin:auto;
 		}
-		*{
-			color:white;
+		.main{
+			height:350px;
+			width:50%;
+			min-width: 500px;
+			background-color: rgba(255,255,255,.5); 		
+			position: absolute;
+			top:0;
+			left:0;
+			right:0;
+			bottom:0;
+			margin:auto;
+			border-radius: 5px;	
+		}
+		.body{
+			width:100%;
+			height:100%;
+		}
+		.body .head-img{
+			width:200px;
+			height:200px;
+			top:-250px;
+			left:0;
+			right:0;
+			bottom:0px;
+			margin:auto;
+
+		}
+		.body .head-img:hover{
+			width:250px;
+			height:250px;
+			top:-300px;
+		}
+		.bottom{
+			bottom: 50px;
+			padding:10px;
+			width:100%;
+			font-size: 25px;
+			text-align: center;
+		}
+		.name{
+			bottom:110px;
+			font-size: 50px;
+			font-weight: bold;
+			text-align: center;
+			width: 100%;
 		}
 	</style>
 </head>
 <body>
 	<canvas id="bgi"></canvas>
-	<h1>谢濛的博客</h1>
+	
+	<div class="main">
+		<div class="body rel">
+			<img class="abs ani head-img" src="img/logo.png" alt="">
+			<div class="name abs">Leo Xie</div>
+			<div class="bottom abs">
+				Welcome to my blog
+			</div>
+		</div>
+	</div>
+
 	<script src = "js/leo.js"></script>
 	<script src = "js/canvas.js"></script>
-	<script>
-		var bgi = dom.id('bgi');
-		var bg = new Image();
-		bg.src = "img/yekong.jpg";
-		bgi.height = screen.height;
-		bgi.width = screen.width;		
-
-		var Star = function(can){
-			this.can = C(can);
-			this.r = 1;
-			
-			var _x = Math.random() * 10 + screen.width / 2 - 10;
-			var _y = Math.random() * 10 + screen.height / 2 - 10;
-			this.position = [_x,_y];
-			this.speed = Math.random() * 20 + 5;
-			this.dirX = Math.sin(Math.random() * 6.3);
-			this.dirY = Math.sin(Math.random() * 6.3);
-		}
-		Star.prototype = {
-			reborn:function(){
-				var _x = Math.random() * 10 + screen.width / 2 - 10;
-				var _y = Math.random() * 10 + screen.height / 2 - 10;
-				this.position = [_x,_y];
-				this.speed = Math.random() * 5 + 5;
-				this.r = 1;
-				this.dirX = Math.sin(Math.random() * 6.3);
-				this.dirY = Math.sin(Math.random() * 6.3);
-			},
-			show:function(){
-				this.can.save()
-				.config({
-					style:{
-						fill:"white"
-					}
-				})
-				.begin()
-				.arc({
-					center:this.position,
-					r:this.r
-				})
-				.fill()
-				.close()
-				.init()
-			},
-			run:function(){
-				if(this.position[0] < 0 || this.position[0] > screen.width || this.position[1] < 0 || this.position[1] > screen.height){
-					this.reborn();
-				}
-				this.r += 0.003;
-				this.position[0] += this.dirX * this.speed;
-				this.position[1] += this.dirY * this.speed;
-				this.show();
-			}
-		}
-
-		var stars = [];
-		for(var i = 0; i < 100; i++){
-			stars[i] = new Star('bgi');
-		}
-		bg.onload = function(){
-			setInterval(function(){
-				C('bgi').clearAll().drawImg({
-					start:[0,0],
-					data:bg,
-					size:[screen.width,screen.height]
-				})
-				times(100,function(){
-					stars[this].run();
-				})
-			},30);
-		}
-
-	</script>
+	<script src = "js/bgi.js"></script>
 </body>
 </html>
