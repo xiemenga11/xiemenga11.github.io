@@ -1,5 +1,5 @@
 (function(){
-			var bgi = dom.id('bgi');
+		var bgi = dom.id('bgi');
 		var bg = new Image();
 		bg.src = "img/yekong.jpg";
 		bgi.height = screen.height;
