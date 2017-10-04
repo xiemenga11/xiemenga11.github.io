@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,user-scaled=0,initial-scaled=1">
+	<title>后台管理</title>
+	<link rel="stylesheet" href="css/admin.css">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<div class="main clear">
+		<div class="nav fl wid1">
+			<div class="nav-item" style="background-color:rgba(0,0,255,0.3);" data-method='articleList'>文章列表</div>
+			<div class="nav-item" data-method='postArticle'>发布文章</div>
+		</div>
+		
+		<div id="articleList" class="content fr wid9">
+			<!-- <div class="title">
+				<div>第一篇文章<span class="fr">2017-09-12</span></div>
+				<div class="methods">
+					<span data-method="view">查看</span>
+					<span data-method="delete">删除</span>
+					<span data-method="update">修改</span>
+				</div>
+			</div> -->
+			
+		</div>
+		<div id="postArticle" class="content hide fr wid9">
+			标题：<input type="text" id="artTitle">
+			<textarea name="article" id="article" class="ckeditor"></textarea>
+			<input type="button" value="提交" id="postBtn">
+		</div>
+	</div>
+	<script src="js/leo.js"></script>
+	<script src="js/bmob-min.js"></script>
+	<script src="js/bmob.js"></script>
+	<script src="CKEditor/ckeditor.js"></script>
+	<script src="js/amdin.js"></script>
+	<script>
+		
+	</script>
+</body>
+</html>

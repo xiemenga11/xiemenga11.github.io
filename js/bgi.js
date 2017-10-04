@@ -1,6 +1,8 @@
 (function(){
 		var bgi = dom.id('bgi');
 		var bg = new Image();
+		var headImg = new Image();
+		headImg.src = "img/logo.png";
 		bg.src = "img/yekong.jpg";
 		bgi.height = screen.height;
 		bgi.width = screen.width;		
