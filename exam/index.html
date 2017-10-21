@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width = device-width,initial-scale = 1,user-scalable = 0">
+	<title>exam</title>
+	<style>
+		.title{
+			font-size: 25px;
+		}
+		.active{
+			background-color: #aaa;
+		}
+		.prop .prop-i{
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<ol id="exam">
+	<li class="question">
+		<div class='title'>title</div>
+		<div class='prop'>
+			<div class="prop-i active">A.alskdf</div>
+			<div class="prop-i">B.dsfaadf</div>
+			<div class="prop-i">C.alskdsadfasdf</div>
+			<div class="prop-i">D.als</div>
+		</div>
+	</li>
+	</ol>
+	<script src="js/leo.js"></script>
+	<script src="js/ti.js"></script>
+	<script>
+		document.onclick = function(ev){
+			var ev = ev || event;
+			var tar = ev.srcElement || ev.target;
+
+			if(l(tar).cls().contains('prop-i') && l(tar.parentNode.parentNode).data('type') == "one"){
+				for(var i = 0, len = tar.parentNode.children.length; i < len ; i++){
+					l(tar.parentNode.children[i]).cls().remove('active');
+				}
+				l(tar).cls().add('active');
+				// alert(tar.parentNode.children.indexof(tar))
+			}else if(l(tar).cls().contains('prop-i') && l(tar.parentNode.parentNode).data('type') == "multi"){
+				l(tar).cls().toggle('active');
+			}
+		}
+
+		var exam = l(l.id('exam'));
+		var renderer = {
+			code:['A','B','C','D','E','F','G'],
+			one:function(data){
+				var ques = l.create({
+					tag:'li',
+					_class:'question',
+					data:{
+						a:data.a,
+						type:'one'
+					}
+				})
+					var title = l.create({
+						tag:'div',
+						content:data.title,
+						_class:'title'
+					})
+					var prop = l.create({
+						tag:'div',
+						_class:'prop'
+					})
+
+						for(var i = 0,len = data.p.length; i < len; i++){
+							prop.appendChild(l.create({
+								tag:'div',
+								content:this.code[i] + "." + data.p[i],
+								_class:'prop-i',
+								style:{
+									padding:'10px'
+								}
+							}))
+						}
+					l(ques).append(title);
+					l(ques).append(prop);
+					exam.append(ques);	
+			},
+			multi:function(data){
+				var ques = l.create({
+					tag:'li',
+					_class:'question',
+					data:{
+						a:data.a,
+						type:'multi'
+					}
+				})
+					var title = l.create({
+						tag:'div',
+						content:data.title,
+						_class:'title'
+					})
+					var prop = l.create({
+						tag:'div',
+						_class:'prop'
+					})
+
+						for(var i = 0,len = data.p.length; i < len; i++){
+							prop.appendChild(l.create({
+								tag:'div',
+								content:this.code[i] + "." + data.p[i],
+								_class:'prop-i',
+								style:{
+									padding:'10px'
+								}
+							}))
+						}
+					l(ques).append(title);
+					l(ques).append(prop);
+					exam.append(ques);
+			}			
+		}
+
+		for(var i = 0; i < Q.one.length; i++){
+			renderer.one(Q.one[i]);
+		}
+		l.create({
+			tag:'div',
+			content:'---------------------多选题----------------------',
+			parent:document.body
+		})
+		for(var i = 0; i < Q.multi.length; i++){
+			renderer.multi(Q.multi[i])
+		}
+	</script>
+</body>
+</html>
