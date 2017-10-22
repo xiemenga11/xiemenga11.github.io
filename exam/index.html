@@ -6,7 +6,8 @@
 	<title>exam</title>
 	<style>
 		.title{
-			font-size: 25px;
+			font-size: 20px;
+			padding:10px;
 		}
 		.active{
 			background-color: #aaa;
@@ -14,11 +15,35 @@
 		.prop .prop-i{
 			cursor: pointer;
 		}
+		.yes{
+			background-color: #13e06b;
+			color:white;
+		}
+		.no{
+			background-color: #f41d68;
+			color:white;
+		}
+		#refresh,
+		#submit{
+			position: fixed;
+			right:10px;
+			padding:10px;
+			border-radius:50%;
+			color:white;
+		}
+		#submit{
+			background-color: #007aff;
+			bottom:10px;
+		}
+		#refresh{
+			background-color: orange;
+			bottom:60px;
+		}
 	</style>
 </head>
 <body>
 	<ol id="exam">
-	<li class="question">
+	<!-- <li class="question">
 		<div class='title'>title</div>
 		<div class='prop'>
 			<div class="prop-i active">A.alskdf</div>
@@ -26,23 +51,43 @@
 			<div class="prop-i">C.alskdsadfasdf</div>
 			<div class="prop-i">D.als</div>
 		</div>
-	</li>
+	</li> -->
 	</ol>
+	<div id="refresh">刷新</div>
+	<div id="submit">提交</div>
 	<script src="js/leo.js"></script>
 	<script src="js/ti.js"></script>
 	<script>
+
 		document.onclick = function(ev){
 			var ev = ev || event;
 			var tar = ev.srcElement || ev.target;
 
 			if(l(tar).cls().contains('prop-i') && l(tar.parentNode.parentNode).data('type') == "one"){
+				//单选
 				for(var i = 0, len = tar.parentNode.children.length; i < len ; i++){
 					l(tar.parentNode.children[i]).cls().remove('active');
 				}
 				l(tar).cls().add('active');
+				tar.parentNode.parentNode.dataset['b'] = tar.dataset['index'];
 				// alert(tar.parentNode.children.indexof(tar))
 			}else if(l(tar).cls().contains('prop-i') && l(tar.parentNode.parentNode).data('type') == "multi"){
+				//多选
 				l(tar).cls().toggle('active');
+				if(l(tar).cls().contains('active')){
+					tar.parentNode.parentNode.dataset['b'] += tar.dataset['index'];
+					tar.parentNode.parentNode.dataset['b'] = tar.parentNode.parentNode.dataset['b'].split('').sort().join('');
+					// console.log(tar.parentNode.parentNode.dataset['b'].split('').sort().join(''))
+				}else{
+					tar.parentNode.parentNode.dataset['b'] = tar.parentNode.parentNode.dataset['b'].replace(tar.dataset['index'],"");
+				}
+
+			}else if(l(tar).cls().contains('prop-i') && l(tar.parentNode).data('type') == 'bool'){
+				for(var i = 0; i < tar.parentNode.children.length; i++){
+					l(tar.parentNode.children[i]).cls().remove('active');
+				}
+				l(tar).cls().add('active');
+				tar.parentNode.dataset['b'] = tar.dataset['index'];
 			}
 		}
 
@@ -55,6 +100,7 @@
 					_class:'question',
 					data:{
 						a:data.a,
+						b:"",
 						type:'one'
 					}
 				})
@@ -75,6 +121,9 @@
 								_class:'prop-i',
 								style:{
 									padding:'10px'
+								},
+								data:{
+									index:i
 								}
 							}))
 						}
@@ -88,6 +137,7 @@
 					_class:'question',
 					data:{
 						a:data.a,
+						b:"",
 						type:'multi'
 					}
 				})
@@ -108,26 +158,121 @@
 								_class:'prop-i',
 								style:{
 									padding:'10px'
+								},
+								data:{
+									index:i
 								}
 							}))
 						}
 					l(ques).append(title);
 					l(ques).append(prop);
 					exam.append(ques);
+			},
+			bool:function(data){
+				var ques = l.create({
+					tag:'li',
+					_class:'question',
+					data:{
+						a:data.a,
+						b:"",
+						type:'bool'
+					}
+				})
+					var title = l.create({
+						tag:'div',
+						_class:'title',
+						content:data.title
+					})
+
+					var yes = l.create({
+						tag:'div',
+						content:'对',
+						data:{
+							index:1
+						},
+						_class:"prop-i",
+						style:{
+							padding:'10px'
+						}
+					})
+					var no = l.create({
+						tag:'div',
+						content:'错',
+						data:{
+							index:0
+						},
+						_class:"prop-i",
+						style:{
+							padding:'10px'
+						}
+					})
+
+				l(ques).append(title);
+				l(ques).append(yes);
+				l(ques).append(no);
+				exam.append(ques);
 			}			
 		}
 
+
+
+		// separator('判断题')
+		// for(var i = 0; i < Q.bool.length; i++){
+		// 	renderer.bool(Q.bool[i]);
+		// }
+
+
+		separator('单选题')
 		for(var i = 0; i < Q.one.length; i++){
 			renderer.one(Q.one[i]);
 		}
-		l.create({
-			tag:'div',
-			content:'---------------------多选题----------------------',
-			parent:document.body
-		})
-		for(var i = 0; i < Q.multi.length; i++){
-			renderer.multi(Q.multi[i])
+
+
+		// separator('多选题');
+		// for(var i = 0; i < Q.multi.length; i++){
+		// 	renderer.multi(Q.multi[i])
+		// }
+
+
+
+		function separator(str){
+			l.create({
+				tag:'div',
+				content:str + '----------------------',
+				parent:exam.dom,
+				style:{
+					color:'#007AFF',
+					margin:"10px"
+				}
+			})
 		}
+
+
+
+		var submit = l(l.id('submit'));
+		submit.on('click',function(){
+			var qs = l._class('question');
+			var y = 0,
+				n = 0;
+			for(var i = 0, len = qs.length; i < len; i++){
+				if(qs[i].dataset['a'] != qs[i].dataset['b']){
+					l(l._class('title',qs[i])[0]).cls().add('no')
+					n ++
+				}else{
+					l(l._class('title',qs[i])[0]).cls().add('yes')
+					y ++
+				}
+			}	
+			total = n + y;
+			alert("您总共做了 : " + total + "道题\n对 : " + y + "\n错 : " + n)		
+		})
+
+
+
+
+
+	//json test
+	var str = '我是一个人'
 	</script>
 </body>
 </html>
