@@ -110,6 +110,13 @@
 			}else{
 				return this.dom.innerHTML;
 			}
+		},
+		val:function(value){
+			if(value || value == 0){
+				this.dom.value = value;
+			}else{
+				return this.dom.value;
+			}
 		}
 	}
 	w.l = l = function(dom){
@@ -131,7 +138,7 @@
 	}
 	l.tag = function(tag,parent){
 		var p = parent || document;
-		return p.getElementsByTagNames(tag);
+		return p.getElementsByTagName(tag);
 	}
 	/**
 	 * 创建元素

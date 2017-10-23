@@ -8,7 +8,7 @@ var dom = {
 	},
 	tag:function(tag,parent){
 		var p = parent || document;
-		return p.getElementsByTagNames(tag);
+		return p.getElementsByTagName(tag);
 	},
 	/**
 	 * 创建元素

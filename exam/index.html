@@ -223,8 +223,9 @@
 
 
 		separator('单选题')
-		for(var i = 0; i < Q.one.length; i++){
-			renderer.one(Q.one[i]);
+		var one = Q.one.shuffle();
+		for(var i = 0,len = one.length; i < len; i++){
+			renderer.one(one[i]);
 		}
 
 
