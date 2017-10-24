@@ -5,9 +5,15 @@
 	<meta name="viewport" content="width = device-width,initial-scale = 1,user-scalable = 0">
 	<title>exam</title>
 	<style>
+		html,body{
+			padding:0;
+			margin:0;
+			background-color: #eee;
+		}
 		.title{
 			font-size: 20px;
 			padding:10px;
+			border-radius: 5px 5px 0 0;
 		}
 		.active{
 			background-color: #aaa;
@@ -19,9 +25,17 @@
 			background-color: #13e06b;
 			color:white;
 		}
+		.yes-i{
+			color:#13e06b;
+		}
 		.no{
 			background-color: #f41d68;
 			color:white;
+		}
+		.question{
+			background-color: #fff;
+			margin:0 10px 10px;
+			border-radius: 5px;
 		}
 		#refresh,
 		#submit{
@@ -34,14 +48,25 @@
 		#submit{
 			background-color: #007aff;
 			bottom:10px;
+			cursor:pointer;
 		}
 		#refresh{
 			background-color: orange;
 			bottom:60px;
+			cursor:pointer;
+		}
+		#head{
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			color:white;
+			font-size: 20px;
+			background-color: #007aff;
 		}
 	</style>
 </head>
 <body>
+	<div id="head">名人居技师考试题库</div>
 	<ol id="exam">
 	<!-- <li class="question">
 		<div class='title'>title</div>
@@ -238,7 +263,7 @@
 
 		function separator(str){
 			l.create({
-				tag:'div',
+				tag:'h2',
 				content:str + '----------------------',
 				parent:exam.dom,
 				style:{
@@ -257,7 +282,10 @@
 				n = 0;
 			for(var i = 0, len = qs.length; i < len; i++){
 				if(qs[i].dataset['a'] != qs[i].dataset['b']){
-					l(l._class('title',qs[i])[0]).cls().add('no')
+					l(l._class('title',qs[i])[0]).cls().add('no');
+					var _prop = l._class('prop',qs[i])[0];
+					var pi = l._class('prop-i',_prop);
+					l(pi[qs[i].dataset['a']]).cls().add('yes-i');
 					n ++
 				}else{
 					l(l._class('title',qs[i])[0]).cls().add('yes')
@@ -268,7 +296,10 @@
 			alert("您总共做了 : " + total + "道题\n对 : " + y + "\n错 : " + n)		
 		})
 
-
+		var reload = l.id('refresh');
+		reload.onclick = function(){
+			location.reload();
+		}
 
 
 
