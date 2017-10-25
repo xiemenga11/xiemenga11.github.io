@@ -69,6 +69,7 @@
 			font-size: 25px;
 			background-color: #007aff;
 			position: fixed;
+			z-index: 999;
 		}
 		#config{
 			font-size: 14px;
@@ -125,13 +126,17 @@
 	<script src="js/leo.js"></script>
 	<script src="js/ti.js"></script>
 	<script>
-		console.log(l.store.get('qc'));
+		// console.log(l.store.get('qc'));
 		var quesCount = l.id("quesCount"),
 			cp = l.id('configPannel'),
 			quesCountBtn = l.id("quesCountBtn"),
 			config = l.id('config');
 			l(config).on('click',function(){
-				l(cp).css({display:'block'})
+				if(cp.style.display == "none"){
+					l(cp).css({display:'block'})
+				}else{
+					l(cp).css({display:'none'})
+				}
 			})
 
 			l(quesCountBtn).on('click',function(){
