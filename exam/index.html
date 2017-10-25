@@ -10,6 +10,9 @@
 			margin:0;
 			background-color: #eee;
 		}
+		body{
+			padding-top:60px;
+		}
 		.title{
 			font-size: 20px;
 			padding:10px;
@@ -56,17 +59,48 @@
 			cursor:pointer;
 		}
 		#head{
-			height: 40px;
-			line-height: 40px;
+			height: 60px;
+			width:100%;
+			top:0;
+			left:0;
+			line-height: 60px;
 			text-align: center;
 			color:white;
-			font-size: 20px;
+			font-size: 30px;
 			background-color: #007aff;
+			position: fixed;
+		}
+		#config{
+			font-size: 14px;
+			float: right;
+			margin-right:10px;
+			cursor: pointer;
+		}
+		#configPannel{
+			position: fixed;
+			top: 60px;
+			right:0;
+			padding:10px;
+			text-align: right;
+			background-color: rgba(0,0,0,0.4);
+		}
+		#quesCount{
+			margin:0 10px;
+			padding:10px;
+			border-radius: 5px;
+			border:1px solid #eee;
+		}
+		#quesCountBtn{
+			margin-left:10px;
 		}
 	</style>
 </head>
 <body>
-	<div id="head">名人居技师考试题库</div>
+	<div id="configPannel" style="display:none;">
+		每次刷新<input type="text" id="quesCount">道题<input type="button" id="quesCountBtn" value="确定">
+	</div>
+	<div id="head">名人居技师考试题库<span id="config">设置</span></div>
+	<!-- <marquee behavior="" direction="">持续更新中……</marquee> -->
 	<ol id="exam">
 	<!-- <li class="question">
 		<div class='title'>title</div>
@@ -83,10 +117,30 @@
 	<script src="js/leo.js"></script>
 	<script src="js/ti.js"></script>
 	<script>
+		console.log(l.store.get('qc'));
+		var quesCount = l.id("quesCount"),
+			cp = l.id('configPannel'),
+			quesCountBtn = l.id("quesCountBtn"),
+			config = l.id('config');
+			l(config).on('click',function(){
+				l(cp).css({display:'block'})
+			})
+
+			l(quesCountBtn).on('click',function(){
+				l(cp).css({display:'none'});
+				if(quesCount.value){
+					l.store.add('qc',quesCount.value);
+					location.reload();
+				}
+			})
 
 		document.onclick = function(ev){
+
+			
 			var ev = ev || event;
 			var tar = ev.srcElement || ev.target;
+
+
 
 			if(l(tar).cls().contains('prop-i') && l(tar.parentNode.parentNode).data('type') == "one"){
 				//单选
@@ -249,7 +303,7 @@
 
 		separator('单选题')
 		var one = Q.one.shuffle();
-		for(var i = 0,len = one.length; i < len; i++){
+		for(var i = 0,len = (l.store.get('qc') && ~~(l.store.get('qc')) < one.length) ? ~~(l.store.get('qc')) : one.length; i < len; i++){
 			renderer.one(one[i]);
 		}
 
@@ -298,13 +352,19 @@
 
 		var reload = l.id('refresh');
 		reload.onclick = function(){
-			location.reload();
+			// location.reload();
+			exam.dom.innerHTML = "";
+			separator('单选题')
+			var one = Q.one.shuffle();
+			for(var i = 0,len = (l.store.get('qc') && ~~(l.store.get('qc')) < one.length) ? ~~(l.store.get('qc')) : one.length; i < len; i++){
+				renderer.one(one[i]);
+			}
+			window.scrollTo(0,0)
 		}
 
 
 
-	//json test
-	var str = '我是一个人'
+	
 	</script>
 </body>
 </html>
