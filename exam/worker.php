@@ -1,4 +1,4 @@
-<?php 
+<?php
 $p = $_POST;
 $file = fopen('js/one.js', 'a');
 switch ($p['a']) {
