@@ -17,10 +17,6 @@
 
 	<link rel="stylesheet" href="css/main.css">
 	<style>
-		.blog-title,
-		.blog-subtitle{
-			color:white;
-		}
 		#bgcan{
 			width:100%;
 			height:100%;
@@ -32,10 +28,22 @@
 			min-height:100%;
 			padding:50px;
 		}
+		.article{
+			padding:20px;
+			width:1000px;
+			margin:0 auto;
+			border-radius: 5px;
+			background-color: #fff;
+		}
+		.content{
+			text-indent: 2em;
+			font-size: 18px;
+			margin-top:20px;
+			flex-grow:1;
+		}
 		.menu{
 			background-color:rgba(255,255,255,0.4);
-			border-radius: 5px;
-			width:300px;
+			border-radius: 5px;;
 		}
 		.menu .menu-i{
 			color:#333;
@@ -48,15 +56,35 @@
 </head>
 <body>
 	<canvas id="bgcan" width="1920" height="1080"></canvas>
-	<div class="main flex dir-tb y-center x-end ">
-		<h1 class="blog-title">LEO XIE'S BLOG</h1>
-		<h3 class="blog-subtitle">WELCOME TO MY BLOG ~~</h3>
-		<div class="menu flex x-around">
-			<a class="menu-i" href="">HOME</a>
-			<a class="menu-i" href="article.html">ARTICLE</a>
-			<a class="menu-i" href="">COMMENT</a>
-			<a class="menu-i" href="">ABOUT ME</a>
+	<div class="menu flex">
+		<a class="menu-i" href="index.html">HOME</a>
+		<a class="menu-i" href="article.html">ARTICLE</a>
+		<a class="menu-i" href="">COMMENT</a>
+		<a class="menu-i" href="">ABOUT ME</a>
+	</div>
+	<div class="main flex">
+		<div class="article flex dir-tb">
+			<h1 class="title tc">title</h1>
+			<div class="info">
+				POSTED AT : <b>2018-05-12</b>　｜　
+				CATEGORY : <b>html</b>　｜　
+				READ : <b>20</b>　｜　
+				COMMENTS : <b>23</b>
+
+			</div>
+			<p class="content">this is content.</p>
+			<div class="flex x-between bor-t pad-t mar-t">
+				<a href="">PRE:pre article</a>
+				<a href="">NEXT:next article</a>
+			</div>
+		
+			<!-- <div class="comment-form">
+				NAME:<input type="text"><br>
+				CONTENT:<textarea col="10" row="30"></textarea>
+			</div> -->
 		</div>
+
+
 	</div>
 	<script src="js/leo.js"></script>
 	<script src="js/bgcan.js"></script>

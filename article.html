@@ -1,27 +1,128 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1">
-	<title>文章列表</title>
-	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/bgi.css">
-	<link rel="stylesheet" href="css/article.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<!-- 为了防止页面数字被识别为电话号码，可根据实际需要添加： -->
+	<meta name="format-detection" content="telephone=no"> 
+	<!-- 让添加到主屏幕的网页再次打开时全屏展示，可添加：   -->
+	<meta content="yes" name="mobile-web-app-capable">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta name="robots" content="all">
+	<meta name="author" content="leoxie" />
+	<meta name="Copyright" content="leoxie" />
+	<meta name="Description" content="谢濛的博客,自学编程" />
+	<meta name="Keywords" content="编程,JS,Javascript,html,css,谢濛" />
+	<title>谢濛的博客</title>
+
+	<link id="css" rel="stylesheet" href="css/main.css">
+	<style>
+		.main{
+			width:100%;
+			min-height:100%;
+			padding:50px;
+		}
+		#bgcan{
+			width:100%;
+			height:100%;
+			position: fixed;
+			z-index: -1;
+		}
+		
+		.cate,
+		.article-info{
+			padding:10px;
+			border-radius: 5px;
+			background-color: rgba(255,255,255,0.4);
+		}
+		.cate .cate-i{
+			color:#333;
+			padding:10px;
+		}
+		.cate-i:hover{
+			color:#f5b91d;
+		}/*
+		.title{
+			color:white;
+		}*/
+		.article-info{
+			margin-top:20px;
+		}
+		.article-des{
+			text-indent: 2em;
+			padding-right:60%;
+			min-height: 60px;
+			max-height: 150px;
+		}
+
+		.menu{
+			background-color:rgba(255,255,255,0.4);
+			border-radius: 5px;
+		}
+		.menu .menu-i{
+			color:#333;
+			padding:10px;
+		}
+		.menu .menu-i:hover{
+			color:#f5b91d;
+		}
+	</style>
 </head>
 <body>
-	<a href="index.html" id="goback">首页</a>
-	<canvas id="bgi"></canvas>
-	<div class="art-list">
-		<!-- <div class="art-title">
-			<a class="art-link" href="">第一篇文章</a>
-			<div class="art-time">2017-09-12</div>
-		</div> -->
+	<canvas id="bgcan" width="1920" height="1080"></canvas>
+	<div class="menu flex">
+		<a class="menu-i" href="index.html">HOME</a>
+		<a class="menu-i" href="article.html">ARTICLE</a>
+		<a class="menu-i" href="">COMMENT</a>
+		<a class="menu-i" href="">ABOUT ME</a>
 	</div>
-<script src = "js/leo.js"></script>
-<script src="js/bmob-min.js"></script>
-<script src="js/bmob.js"></script>
-<script src="js/article.js"></script>
-<script src = "js/canvas.js"></script>
-<script src = "js/bgi.js"></script>
+	<div class="main flex dir-tb">
+		<div class="cate">
+			<span class="cate-i">ALL</span>
+			<span class="cate-i">html</span>
+			<span class="cate-i">css</span>
+			<span class="cate-i">python</span>
+			<span class="cate-i">javascript</span>
+		</div>
+		<div class="article-list">
+			<div class="article-info">
+				<a href="viewArticle.html"><h3 class="article-title">title</h3></a>
+				<p class="article-des">this is article description.this is article description.this is article description.this is article description.this is article description.this is article description.this is article description.this is article description.this is article description.</p>
+				<p>
+					POSTED AT : <b>2018-05-12</b>　｜　
+					CATEGORY : <b>html</b>　｜　
+					READ : <b>20</b>　｜　
+					COMMENTS : <b>23</b>
+				</p>
+			</div>
+		</div>
+
+		<div class="article-list">
+			<div class="article-info">
+				<h3 class="article-title">title</h3>
+				<p class="article-des">this is article description.this is article description.this is article description.this is article description.this is article description.this is article description.this is article description.this is article description.this is article description.</p>
+				<p>
+					POSTED AT : <b>2018-05-12</b>　｜　
+					CATEGORY : <b>html</b>　｜　
+					READ : <b>20</b>　｜　
+					COMMENTS : <b>23</b>
+				</p>
+			</div>
+		</div>
+		<div class="article-list">
+			<div class="article-info">
+				<h3 class="article-title">title</h3>
+				<p class="article-des">this is article description.this is article description.this is article description.this is article description.this is article description.this is article description.this is article description.this is article description.this is article description.</p>
+				<p>
+					POSTED AT : <b>2018-05-12</b>　｜　
+					CATEGORY : <b>html</b>　｜　
+					READ : <b>20</b>　｜　
+					COMMENTS : <b>23</b>
+				</p>
+			</div>
+		</div>
+	</div>
+	<script src="js/leo.js"></script>
+	<script src="js/bgcan.js"></script>
 </body>
 </html>
