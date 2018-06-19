@@ -28,12 +28,16 @@
 			min-height:100%;
 			padding:50px;
 		}
-		.article{
+		.article,
+		.comment-form{
 			padding:20px;
 			width:1000px;
 			margin:0 auto;
 			border-radius: 5px;
 			background-color: #fff;
+		}
+		.comment-form{
+			margin-bottom:20px;
 		}
 		.content{
 			text-indent: 2em;
@@ -51,6 +55,9 @@
 		}
 		.menu .menu-i:hover{
 			color:#f5b91d;
+		}
+		#verify{
+			border:1px solid #ddd;
 		}
 	</style>
 </head>
@@ -78,15 +85,21 @@
 				<a href="">NEXT:next article</a>
 			</div>
 		
-			<!-- <div class="comment-form">
-				NAME:<input type="text"><br>
-				CONTENT:<textarea col="10" row="30"></textarea>
-			</div> -->
 		</div>
 
 
 	</div>
+	<div class="comment-form">
+		NAME:<br/><input type="text"><br>
+		CONTENT:<br/><textarea class="pad" cols="100" rows="5"></textarea><br>
+		VERIFY:<br/>
+		<div class="flex y-center"><input id="verifyValue" type="text"><img id="verify" src="" alt="verify is onerror"></div>
+		<br>
+		<button id="submitComment">submit</button>
+	</div>
 	<script src="js/leo.js"></script>
 	<script src="js/bgcan.js"></script>
+	<script src="js/verify.js"></script>
+	<script src="js/commentForm.js"></script>
 </body>
 </html>
