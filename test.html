@@ -5,9 +5,40 @@
 	<title>2018名人居考试题库</title>
 	<link rel="stylesheet" href="css/main.css">
 	<meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1">
+	<style>
+		body{
+			padding-top:100px;
+		}
+		.header{
+			color:white;
+			text-align: center;
+			height:100px;
+			line-height: 100px;
+			position: fixed;
+			top:0;
+			left:0;
+			width:100%;
+			background-color: rgb(241,177,1);
+		}
+		.btn{
+			width:25%;
+			border:1px solid white;
+			border-radius:5px;
+			padding:10px;
+			color:white;
+			background-color: rgba(241,177,1,0.7);
+			font-size:18px;
+		}
+	</style>
 </head>
 <body>
-
+<h2 class="header">2018名人居技师考试题库</h2>
+<div class="flex x-between">
+	<button class="btn" id="test10">练10题</button>
+	<button class="btn" id="test20">练20题</button>
+	<button class="btn" id="test40">练40题</button>
+	<button class="btn" id="checkAll">查看全部题目</button>
+</div>
 <script src="js/leo.js"></script>
 <script src="quest.js"></script>
 <script>
