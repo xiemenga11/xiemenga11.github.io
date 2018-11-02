@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2018名人居考试题库</title>
+	<link rel="stylesheet" href="css/main.css">
+	<meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1">
+</head>
+<body>
+
+<script src="js/leo.js"></script>
+<script src="quest.js"></script>
+<script>
+	function ajax(url,callback){
+		var hr = window.XMLHttpRequest?new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+		hr.onreadystatechange = function(){
+			if(hr.readyState == 4 && hr.status == 200){
+				callback(hr.responseText)
+			}
+		}
+		hr.open('get',url,true);
+		hr.send()
+	}
+	// ajax('s.txt',function(re){
+	// 	var arr = re.split(';;')
+	// 	var quest = [];
+	// 	for(var i = 0 ; i < arr.length; i++){
+	// 		quest.push(arr[i].split('::'))
+	// 	}
+	// 	document.write(JSON.stringify(quest))
+	// })
+	var len = one.length;
+	var color = '';
+	for(var i = 0; i < len-1; i++){
+		color = (i%2 == 0) ? '#ddd' : '#fff';
+		document.write('<div style="background-color:'+color+';padding:10px;">') 
+		document.write('<h3>'+(i+1)+'.'+one[i][1]+'</h3>')
+		document.write('<div>A.'+one[i][2]+'</div>')
+		document.write('<div>B.'+one[i][3]+'</div>')
+		document.write('<div>C.'+one[i][4]+'</div>')
+		one[i][5] && document.write('<div>D.'+one[i][5]+'</div>')
+		document.write('<div>正确答案:'+one[i][6]+'</div>')
+		document.write('</div>')
+	}
+</script>
+</body>
+</html>
