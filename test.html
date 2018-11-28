@@ -1,29 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>2018名人居考试题库</title>
 	<link rel="stylesheet" href="css/main.css">
 	<meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1">
 	<style>
-		body{
-			padding-top:152px;
-		}
 		.header{
 			color:white;
 			text-align: center;
 			height:100px;
 			line-height: 100px;
-			position: fixed;
+			/*position: fixed;
 			top:0;
-			left:0;
+			left:0;*/
 			width:100%;
 			background-color: rgb(241,177,1);
 		}
 		.btn-box{
-			position: fixed;
+			/*position: fixed;
 			top:102px;
-			left:0;
+			left:0;*/
 			width:100%;
 			height:50px;
 		}
@@ -45,6 +42,7 @@
 			margin:10px auto;
 			border-radius: 5px;
 			overflow: hidden;
+			background-color: #fff;
 		}
 		.test-box .test-title{
 			font-size: 20px;
@@ -59,9 +57,9 @@
 		.option-i{
 			padding:10px;
 		}
-		/*.option-i:active{
+		.option-i:active{
 			background-color: #aaa;
-		}*/
+		}
 		.test-awnser{
 			margin:10px;
 		}
@@ -74,56 +72,64 @@
 	</style>
 </head>
 <body>
-<h2 class="header">2018名人居技师考试题库</h2>
+<h2 id="header" class="header">2018名人居技师考试题库</h2>
 <!-- <div class="btn-box">
 <div class="flex x-between">
-	<a href="#main" class="btn ani" id="test10">练10题</a>
-	<a href="#main" class="btn ani" id="test20">练20题</a>
-	<a href="#main" class="btn ani" id="test40">练40题</a>
-	<a href="#main" class="btn ani" id="checkAll">查看全部题目</a>
+	<a href="#header" class="btn ani" id="test10">练10题</a>
+	<a href="#header" class="btn ani" id="test20">练20题</a>
+	<a href="#header" class="btn ani" id="test40">练40题</a>
+	<a href="#header" class="btn ani" id="checkAll">查看全部题目</a>
 </div>
 </div> -->
-<div id="main">
-	<!-- <div class="test-box">
-		<div class="test-title">titel</div>
-		<div class="test-option-box">
-			<div class="option-i">1</div>
-			<div class="option-i">1</div>
-			<div class="option-i">1</div>
-			<div class="option-i">1</div>
+<div id="main" v-cloak>
+	<div>{{age}}</div>
+	<template v-for="(val,i) in one">
+		<div class="test-box">
+			<div class="test-title">{{i + 1}}.{{val[1]}}</div>
+			<div class="test-option-box">
+				<div class="option-i">A. {{val[2]}}</div>
+				<div class="option-i">B. {{val[3]}}</div>
+				<div class="option-i">C. {{val[4]}}</div>
+				<div class="option-i" v-if="val[5]">D. {{val[5]}}</div>
+			</div>
+			<div class="test-awnser">
+				<b>正确答案 : </b>
+				<span class="green">{{val[6]}}</span>
+			</div>
 		</div>
-	</div> -->
+	</template>
 </div>
+
+
+
+<div id="app">
+  <button v-on:click="counter += 1">增加 1</button>
+  <p>这个按钮被点击了 {{ counter }} 次。</p>
+</div>
+
+
 <script src="js/leo.js"></script>
 <script src="quest.js"></script>
+<script src="js/vue.js"></script>
 <script>
-	var awnser = {
-		a:0,
-		b:1,
-		c:2,
-		d:3
-	}
-
-	var main = l.id('main');
-
-	function makeTest(num,showAwnser){
-		main.dom.innerHTML = '';
-		var color;
-		one = one.shuffle();
-		for(var i = 0; i < num; i++){
-			color = (i % 2 == 0) ? '#fff' : '#ddd';
-			var answer = showAwnser?'<div class="test-awnser"><b>正确答案 : </b><span class="green">'+one[i][6]+'</span></div>':0;
-			var d = one[i][5] ? '<div class="option-i" data-i="3">D.'+one[i][5]+'</div>':'';
-			var tmp = '<div class="test-box" style="background-color:'+color+'"><div class="test-title">'+(i+1)+'.'+one[i][1]+'</div><div class="test-option-box"><div class="option-i" data-i="0">A.'+one[i][2]+'</div><div class="option-i" data-i="1">B.'+one[i][3]+'</div><div class="option-i" data-i="2">C.'+one[i][4]+'</div>'+d+'</div>'+answer+'</div>'
-			main.dom.innerHTML += tmp;	
-		}
-	}
-
-	makeTest(one.length,true);
-	l.id('test10').click(function(){makeTest(10,false)});
-	l.id('test20').click(function(){makeTest(20,false)});
-	l.id('test40').click(function(){makeTest(40,false)});
-	l.id('checkAll').click(function(){makeTest(one.length,true)});
+	new Vue({
+	  el: '#app',
+	  data: {
+	    counter: 0
+	  }
+	})
+	// var t = new Vue({
+	// 	el:'#main',
+	// 	data:{
+	// 		one:one.shuffle(),
+	// 		age:1
+	// 	},
+	// 	methods:{
+	// 		refresh:function(er){
+	// 			this.one = one.shuffle()
+	// 		}
+	// 	}
+	// })
 </script>
 </body>
 </html>
